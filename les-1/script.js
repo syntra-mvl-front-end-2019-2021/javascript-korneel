@@ -53,7 +53,7 @@
     parseInt('3'); // gehele getallen
     parseFloat('3.3'); // komma getallen
 
-    let twoStrings = 'Test123' + 'Test123';
+    let twoStrings = 'Test123' + 'Test123'; //'Test123Test123'
     let twoNumbers = 1 + parseInt('1');
     console.log(twoNumbers);
 
