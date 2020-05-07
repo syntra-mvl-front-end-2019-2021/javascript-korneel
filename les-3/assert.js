@@ -32,7 +32,10 @@ function assertResult($assertContainer, functionName, params, expected) {
     const paramsString = JSON.stringify(params);
     const expectedString = JSON.stringify(expected);
 
-    if (window[functionName].apply(this, params) === expected) {
+    if (
+        JSON.stringify(window[functionName].apply(this, params)) ===
+        JSON.stringify(expected)
+    ) {
         appendTo(
             $assertContainer,
             `<p class="asserter success">${success()} ${functionName}(${paramsString.substring(
@@ -85,6 +88,7 @@ function assertResult($assertContainer, functionName, params, expected) {
 
     assertFunctionExists(functionName, $assertContainer);
     assertResult($assertContainer, functionName, [[1, 2, 3]], 3);
+    assertResult($assertContainer, functionName, [[9, 2, 3, 6]], 9);
 })();
 
 (function assertReverseArray() {
@@ -95,6 +99,12 @@ function assertResult($assertContainer, functionName, params, expected) {
 
     assertFunctionExists('reverseArray', $assertContainer);
     assertResult($assertContainer, functionName, [[1, 2, 3]], [3, 2, 1]);
+    assertResult(
+        $assertContainer,
+        functionName,
+        [[5, 2, 3, 9, 12]],
+        [12, 9, 3, 2, 5]
+    );
 })();
 
 (function assertArraySum() {
@@ -105,6 +115,8 @@ function assertResult($assertContainer, functionName, params, expected) {
 
     assertFunctionExists('arraySum', $assertContainer);
     assertResult($assertContainer, functionName, [[1, 2, 3]], 6);
+    assertResult($assertContainer, functionName, [[2, 11, 7, 12]], 32);
+    assertResult($assertContainer, functionName, [[2, 11, -4]], 9);
 })();
 
 (function assertStringOfFirstLetters() {
@@ -119,6 +131,12 @@ function assertResult($assertContainer, functionName, params, expected) {
         functionName,
         [['Dog', 'cat', 'snake']],
         'Dcs'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        [['Cat', 'ostrich', 'owl', 'leopard']],
+        'Cool'
     );
 })();
 
