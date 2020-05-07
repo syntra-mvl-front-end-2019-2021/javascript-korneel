@@ -28,6 +28,29 @@ function assertFunctionExists(functionName, $assertContainer) {
     }
 }
 
+function assertResult($assertContainer, functionName, params, expected) {
+    const paramsString = JSON.stringify(params);
+    const expectedString = JSON.stringify(expected);
+
+    if (window[functionName].apply(this, params) === expected) {
+        appendTo(
+            $assertContainer,
+            `<p class="asserter success">${success()} ${functionName}(${paramsString.substring(
+                1,
+                paramsString.length - 1
+            )}) did return ${expectedString}</p>`
+        );
+    } else {
+        appendTo(
+            $assertContainer,
+            `<p class="asserter fail">${fail()} ${functionName}(${paramsString.substring(
+                1,
+                paramsString.length - 1
+            )}) did not return ${expectedString}</p>`
+        );
+    }
+}
+
 (function prepFile() {
     const $assertContainer = document.getElementById('assertions');
     const containers = [
@@ -55,75 +78,121 @@ function assertFunctionExists(functionName, $assertContainer) {
 })();
 
 (function assertReverseArray() {
+    const functionName = 'getLargestItemInArray';
     const $assertContainer = document.querySelector(
         '#getLargestItemInArray .assert-container'
     );
 
-    assertFunctionExists('getLargestItemInArray', $assertContainer);
+    assertFunctionExists(functionName, $assertContainer);
+    assertResult($assertContainer, functionName, [[1, 2, 3]], 3);
 })();
 
 (function assertReverseArray() {
+    const functionName = 'reverseArray';
     const $assertContainer = document.querySelector(
         '#reverseArray .assert-container'
     );
 
     assertFunctionExists('reverseArray', $assertContainer);
+    assertResult($assertContainer, functionName, [[1, 2, 3]], [3, 2, 1]);
 })();
 
 (function assertArraySum() {
+    const functionName = 'arraySum';
     const $assertContainer = document.querySelector(
         '#arraySum .assert-container'
     );
 
     assertFunctionExists('arraySum', $assertContainer);
+    assertResult($assertContainer, functionName, [[1, 2, 3]], 6);
 })();
 
 (function assertStringOfFirstLetters() {
+    const functionName = 'stringOfFirstLetters';
     const $assertContainer = document.querySelector(
         '#stringOfFirstLetters .assert-container'
     );
 
     assertFunctionExists('stringOfFirstLetters', $assertContainer);
+    assertResult(
+        $assertContainer,
+        functionName,
+        [['Dog', 'cat', 'snake']],
+        'Dcs'
+    );
 })();
 
 (function assertCombineArrays() {
+    const functionName = 'combineArrays';
     const $assertContainer = document.querySelector(
         '#combineArrays .assert-container'
     );
 
     assertFunctionExists('combineArrays', $assertContainer);
+    assertResult(
+        $assertContainer,
+        functionName,
+        [
+            ['a', 'b', 'c'],
+            [1, 2, 3],
+        ],
+        ['a', 1, 'b', 2, 'c', 3]
+    );
 })();
 
 (function assertNumberToDigitArray() {
+    const functionName = 'numberToDigitArray';
     const $assertContainer = document.querySelector(
         '#numberToDigitArray .assert-container'
     );
 
-    assertFunctionExists('numberToDigitArray', $assertContainer);
+    assertFunctionExists(functionName, $assertContainer);
+    assertResult($assertContainer, functionName, [2342], [2, 3, 4, 2]);
 })();
 
 (function assertTranslateToPigLating() {
+    const functionName = 'translateToPigLating';
     const $assertContainer = document.querySelector(
         '#translateToPigLating .assert-container'
     );
 
-    assertFunctionExists('translateToPigLating', $assertContainer);
+    assertFunctionExists(functionName, $assertContainer);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['the quick brown fox'],
+        'hetay uickqay rownbay oxfay'
+    );
 })();
 
 (function assertTranslateToMorse() {
+    const functionName = 'translateToMorse';
     const $assertContainer = document.querySelector(
         '#translateToMorse .assert-container'
     );
 
-    assertFunctionExists('translateToMorse', $assertContainer);
+    assertFunctionExists(functionName, $assertContainer);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['Hello World'],
+        '****|*|*_**|*_**|___| *__|___|*_*|*_**|_**|'
+    );
 })();
 
 (function assertTranslateToMorseFancy() {
+    const functionName = 'translateToMorseFancy';
     const $assertContainer = document.querySelector(
         '#translateToMorseFancy .assert-container'
     );
 
-    assertFunctionExists('translateToMorseFancy', $assertContainer);
+    assertFunctionExists(functionName, $assertContainer);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['Hello World'],
+        '****|*|*_**|*_**|___ *__|___|*_*|*_**|_**'
+    );
 })();
 
 (function countTotals() {
