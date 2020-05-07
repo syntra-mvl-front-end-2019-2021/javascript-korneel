@@ -1,1 +1,1 @@
-console.log('Arrert ready!');
+console.log('Assert ready!');
