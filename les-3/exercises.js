@@ -1,9 +1,5 @@
 // Return the largest element of array (all elements will be numbers), e.g. [1,2,3] → 3
-function getLargestItemInArray(array) {
-    let largestVal;
-
-    return largestVal;
-}
+function getLargestItemInArray(array) {}
 
 // Reverse order of array, e.g. [1,2,3] → [3,2,1]
 function reverseArray(anArray) {}

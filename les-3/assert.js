@@ -6,24 +6,28 @@ function appendTo($element, html) {
     $element.innerHTML += html;
 }
 
+function spacing() {
+    return '<span style="color: transparent; display: inline-block; width: 5rem;"></span>';
+}
+
 function fail() {
-    return '<span style="color: indianred; margin-right: 20px;">[fail]</span>';
+    return '<span style="color: indianred; display: inline-block; width: 5rem;">[fail]</span>';
 }
 
 function success() {
-    return '<span style="color: lawngreen; margin-right: 20px;">[success]</span>';
+    return '<span style="color: lawngreen; display: inline-block; width: 5rem;">[success]</span>';
 }
 
 function assertFunctionExists(functionName, $assertContainer) {
     if (typeof window[functionName] === 'function') {
         appendTo(
             $assertContainer,
-            `<p class="asserter success">${success()} Function ${functionName} found</p>`
+            `<p class="asserter success">${success()} Function <code>${functionName}()</code> found</p>`
         );
     } else {
         appendTo(
             $assertContainer,
-            `<p class="asserter fail">${fail()} Function ${functionName} not found</p>`
+            `<p class="asserter fail">${fail()} Function <code>${functionName}()</code> not found</p>`
         );
     }
 }
@@ -31,17 +35,17 @@ function assertFunctionExists(functionName, $assertContainer) {
 function assertResult($assertContainer, functionName, params, expected) {
     const paramsString = JSON.stringify(params);
     const expectedString = JSON.stringify(expected);
+    const actualString = JSON.stringify(
+        window[functionName].apply(this, params)
+    );
 
-    if (
-        JSON.stringify(window[functionName].apply(this, params)) ===
-        JSON.stringify(expected)
-    ) {
+    if (expectedString === actualString) {
         appendTo(
             $assertContainer,
-            `<p class="asserter success">${success()} ${functionName}(${paramsString.substring(
+            `<p class="asserter success">${success()} <code>${functionName}(${paramsString.substring(
                 1,
                 paramsString.length - 1
-            )}) did return ${expectedString}</p>`
+            )})</code> did return <code>${expectedString}</code></p>`
         );
     } else {
         appendTo(
@@ -49,7 +53,7 @@ function assertResult($assertContainer, functionName, params, expected) {
             `<p class="asserter fail">${fail()} ${functionName}(${paramsString.substring(
                 1,
                 paramsString.length - 1
-            )}) did not return ${expectedString}</p>`
+            )}) did not return ${expectedString}</p><p>${spacing()} it returned: ${actualString}</p>`
         );
     }
 }
@@ -129,6 +133,12 @@ function assertResult($assertContainer, functionName, params, expected) {
     assertResult(
         $assertContainer,
         functionName,
+        [['home', 'away', 'back', 'forth']],
+        'habf'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
         [['Dog', 'cat', 'snake']],
         'Dcs'
     );
@@ -156,6 +166,24 @@ function assertResult($assertContainer, functionName, params, expected) {
         ],
         ['a', 1, 'b', 2, 'c', 3]
     );
+    assertResult(
+        $assertContainer,
+        functionName,
+        [
+            ['a', 'b', 'c'],
+            [1, 2, 3, 4, 5],
+        ],
+        ['a', 1, 'b', 2, 'c', 3, 4, 5]
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        [
+            ['a', 'b', 'c', 'd', 'e'],
+            [1, 2],
+        ],
+        ['a', 1, 'b', 2, 'c', 'd', 'e']
+    );
 })();
 
 (function assertNumberToDigitArray() {
@@ -166,6 +194,13 @@ function assertResult($assertContainer, functionName, params, expected) {
 
     assertFunctionExists(functionName, $assertContainer);
     assertResult($assertContainer, functionName, [2342], [2, 3, 4, 2]);
+    assertResult($assertContainer, functionName, [1], [1]);
+    assertResult(
+        $assertContainer,
+        functionName,
+        [2057830],
+        [2, 0, 5, 7, 8, 3, 0]
+    );
 })();
 
 (function assertTranslateToPigLating() {
@@ -181,6 +216,18 @@ function assertResult($assertContainer, functionName, params, expected) {
         ['the quick brown fox'],
         'hetay uickqay rownbay oxfay'
     );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['The quick brown fox'],
+        'Hetay uickqay rownbay oxfay'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['My name is Slim Shady'],
+        'Ymay amenay siay Limsay Hadysay'
+    );
 })();
 
 (function assertTranslateToMorse() {
@@ -193,8 +240,26 @@ function assertResult($assertContainer, functionName, params, expected) {
     assertResult(
         $assertContainer,
         functionName,
+        ['abcdefghijklmnopqrstuvwxyz'],
+        '*_|_***|_*_*|_**|*|**_*|__*|****|**|*___|_*_|*_**|__|_*|___|*__*|__*_|*_*|***|_|**_|***_|*__|_**_|_*__|__**'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
         ['Hello World'],
         '****|*|*_**|*_**|___| *__|___|*_*|*_**|_**|'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['Weary stare'],
+        '*__|*|*_|*_*|_*__| ***|_|*_|*_*|*|'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['JavaScript is cool'],
+        '*___|*_|***_|*_|***|_*_*|*_*|**|*__*|_| **|***| _*_*|___|___|*_**|'
     );
 })();
 
@@ -208,8 +273,26 @@ function assertResult($assertContainer, functionName, params, expected) {
     assertResult(
         $assertContainer,
         functionName,
+        ['abcdefghijklmnopqrstuvwxyz'],
+        '*_|_***|_*_*|_**|*|**_*|__*|****|**|*___|_*_|*_**|__|_*|___|*__*|__*_|*_*|***|_|**_|***_|*__|_**_|_*__|__**'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
         ['Hello World'],
         '****|*|*_**|*_**|___ *__|___|*_*|*_**|_**'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['Weary stare'],
+        '*__|*|*_|*_*|_*__ ***|_|*_|*_*|*'
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['JavaScript is cool'],
+        '*___|*_|***_|*_|***|_*_*|*_*|**|*__*|_ **|*** _*_*|___|___|*_**'
     );
 })();
 
