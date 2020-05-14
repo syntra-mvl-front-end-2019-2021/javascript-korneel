@@ -9,6 +9,7 @@ function wordCount(sentence, word) {}
 // → this would mean the letter with index 2 has to be multiplied by 2
 // and the letter with index 5 has to be multiplied by 3
 // wordMultiplier → the number of times the word score has to be multiplied
+// 'hello', [{index: 2, multiplier: 2}], 1
 function scrabbleScoreCalculator(word, letterMultipliers, wordMultiplier) {}
 
 // Determine if a sentence is a pangram
@@ -18,5 +19,5 @@ function isPangram(sentence) {}
 
 // Given a word and a list of possible anagrams,
 // return an array with all the correct anagrams.
-// e.g. 'master', [stream', 'pigeon', 'maters'] → ['stream', 'maters']
+// e.g. 'master', ['stream', 'pigeon', 'maters'] → ['stream', 'maters']
 function findAnagrams(word, possibleAnagrams) {}

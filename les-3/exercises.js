@@ -39,6 +39,7 @@ function stringOfFirstLetters(anArray) {
 
     for (let anArrayIndex in anArray) {
         result += anArray[anArrayIndex].substr(0, 1);
+        // anArray[anArrayIndex][0]
     }
 
     return result;
@@ -65,7 +66,7 @@ function combineArrays(arrayOne, arrayTwo) {
 
 // Takes a number and returns a list of its digits. e.g. 2342 → [2,3,4,2]
 function numberToDigitArray(aNumber) {
-    let digitStringArray = aNumber.toString().split('');
+    let digitStringArray = aNumber.toString().split(''); // ['2', '3', '4', '2']
     let result = [];
 
     for (let i in digitStringArray) {
@@ -89,17 +90,18 @@ function translateToPigLating(aString) {
 
     for (let i in wordArray) {
         let curWord = wordArray[i];
-        let curWordFirsLetter = curWord.substr(0, 1);
-        let curWordOtherLetters = curWord.substr(1);
+        let curWordFirsLetter = curWord.substr(0, 1); // T
+        let curWordOtherLetters = curWord.substr(1); // he
+
         if (curWordFirsLetter === curWordFirsLetter.toUpperCase()) {
             curWordOtherLetters =
                 curWordOtherLetters.substr(0, 1).toUpperCase() +
-                curWordOtherLetters.substr(1);
+                curWordOtherLetters.substr(1); // He
 
-            curWordFirsLetter = curWordFirsLetter.toLowerCase();
+            curWordFirsLetter = curWordFirsLetter.toLowerCase(); // t
         }
 
-        let pigLtnWord = curWordOtherLetters + curWordFirsLetter + 'ay';
+        let pigLtnWord = curWordOtherLetters + curWordFirsLetter + 'ay'; // Hetay
         pigLtnArray.push(pigLtnWord);
     }
 
@@ -221,6 +223,7 @@ function translateToMorse(aString) {
 
     for (let i in aStringArray) {
         let curLetter = aStringArray[i];
+
         if (curLetter === ' ') {
             resultArray.push(' ');
         } else {
