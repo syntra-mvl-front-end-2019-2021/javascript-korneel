@@ -50,10 +50,10 @@ function assertResult($assertContainer, functionName, params, expected) {
     } else {
         appendTo(
             $assertContainer,
-            `<p class="asserter fail">${fail()} ${functionName}(${paramsString.substring(
+            `<p class="asserter fail">${fail()} <code>${functionName}(${paramsString.substring(
                 1,
                 paramsString.length - 1
-            )}) did not return ${expectedString}</p><p>${spacing()} it returned: ${actualString}</p>`
+            )})</code> did not return <code>${expectedString}</code></p><p>${spacing()} it returned: <code>${actualString}</code></p>`
         );
     }
 }
@@ -92,6 +92,31 @@ function assertResult($assertContainer, functionName, params, expected) {
         ['Ik heb honger, heb jij ook honger.', 'heb'],
         2
     );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['A glittering gem is not enough.', 'empty'],
+        0
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['Soms met een hoofdletter, soms niet.', 'soms'],
+        2
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        [
+            "(Hell) And it's gonna be swell\n" +
+                "We have a show and we're gonna be late\n" +
+                "(Hell) And it's gonna be great\n" +
+                "We're in a rush and we're wasting our time\n" +
+                "(Hell) And it's gonna be fine",
+            'gonna',
+        ],
+        4
+    );
 })();
 
 (function assertScrabbleScoreCalculator() {
@@ -101,6 +126,53 @@ function assertResult($assertContainer, functionName, params, expected) {
     );
 
     assertFunctionExists(functionName, $assertContainer);
+    assertResult($assertContainer, functionName, ['elapse', [], 1], 8);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['elapse', [{ index: 2, multiplier: 3 }], 1],
+        10
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        [
+            'elapse',
+            [
+                { index: 2, multiplier: 3 },
+                { index: 4, multiplier: 2 },
+            ],
+            1,
+        ],
+        11
+    );
+    assertResult($assertContainer, functionName, ['elapse', [], 3], 24);
+    assertResult(
+        $assertContainer,
+        functionName,
+        [
+            'elapse',
+            [
+                { index: 2, multiplier: 3 },
+                { index: 4, multiplier: 2 },
+            ],
+            2,
+        ],
+        22
+    );
+    assertResult($assertContainer, functionName, ['chimpanzee', [], 1], 28);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['chimpanzee', [{ index: 5, multiplier: 3 }], 1],
+        30
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['chimpanzee', [{ index: 22, multiplier: 3 }], 1],
+        28
+    );
 })();
 
 (function assertScrabbleScoreCalculator() {
@@ -110,13 +182,50 @@ function assertResult($assertContainer, functionName, params, expected) {
     );
 
     assertFunctionExists(functionName, $assertContainer);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['The quick brown fox jumps over the lazy dog'],
+        true
+    );
+    assertResult($assertContainer, functionName, ['Not a pangram'], false);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['Op brute wijze ving de schooljuf de quasi-kalme lynx'],
+        true
+    );
 })();
 
 (function assertScrabbleScoreCalculator() {
-    const functionName = 'isPangram';
+    const functionName = 'findAnagrams';
     const $assertContainer = document.querySelector(
-        '#isPangram .assert-container'
+        '#findAnagrams .assert-container'
     );
 
     assertFunctionExists(functionName, $assertContainer);
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['master', ['stream', 'pigeon', 'maters']],
+        ['stream', 'maters']
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['panels', ['Naples', 'planes', 'lanes']],
+        ['Naples', 'planes']
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['diagnose', ['agonised', 'San Diego', 'sondage']],
+        ['agonised', 'San Diego']
+    );
+    assertResult(
+        $assertContainer,
+        functionName,
+        ['an aisle', ['is a lane', 'aliens', 'saline']],
+        ['is a lane']
+    );
 })();
