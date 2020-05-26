@@ -112,7 +112,7 @@ function isAnagram(word, possibleAnagram) {
     const spacelessWord = removeSpaces(word);
     const spacelessPossibleAnagram = removeSpaces(possibleAnagram);
 
-    const letterArray = spacelessWord.toLowerCase().split('');
+    const letterArray = spacelessWord.toLowerCase().split(''); // 'test' > ['t','e','s','t']
 
     if (spacelessWord.length !== spacelessPossibleAnagram.length) {
         return false;
