@@ -9,10 +9,18 @@ const numberCountContainer = document.querySelector('#number-count-container');
 function sumNumbers() {
   // return the sum value of all the numbers
   const numberInputs = document.querySelectorAll('.number-input');
+//   const numberInputs = document.getElementsByClassName('number-input');
+
   let totalSum = 0;
-  numberInputs.forEach(function (numberInput) {
+
+  for (let numberInput of numberInputs) {
     totalSum += parseInt(numberInput.value);
-  });
+  }
+  
+//   for (let i = 0; i < numberInputs.length; i++) {
+//     totalSum += parseInt(numberInputs[i].value);
+//   }
+
   return totalSum;
 }
 
@@ -34,10 +42,10 @@ function multiplyNumbers() {
 
 function printProduct() {
   // print the product of all the numbers
-  productResultContainer.textContent = multiplyNumbers();
+  productResultContainer.innerText = multiplyNumbers();
 }
 
-function realTime() {
+function realTime(event) {
   printProduct();
   printSum();
 }
@@ -47,25 +55,43 @@ function printNumberCount() {
   const numberOfInputs = numberInputContainer.children.length;
   // same result as >
   // const numberOfInputs = document.querySelectorAll('.input-number').length;
-  numberCountContainer.textContent = numberOfInputs;
+  numberCountContainer.innerText = numberOfInputs;
 }
 
 function addNumberInput() {
   // add a number input
-  const existingInputGroup = document.querySelector('.number-input-group');
-  const newInputGroup = existingInputGroup.cloneNode(true);
-  const newNumberInput = newInputGroup.querySelector('.number-input');
-  newNumberInput.value = '0';
+//   const existingInputGroup = document.querySelector('.number-input-group');
+//   const newInputGroup = existingInputGroup.cloneNode(true);
+//   const newNumberInput = newInputGroup.querySelector('.number-input');
+//   newNumberInput.value = '0';
+//   numberInputContainer.appendChild(newInputGroup);
+
+  const newInputGroup = document.createElement('div');
+  newInputGroup.classList.add('field', 'has-addons', 'number-input-group');
+  newInputGroup.innerHTML += `
+    <div class="control">
+      <input class="input number-input" type="number" step="1" value="0">
+    </div>
+    <div class="control">
+      <a class="button is-danger delete-number-input">
+        X
+      </a>
+    </div>
+  `;
   numberInputContainer.appendChild(newInputGroup);
+
   printNumberCount();
   realTime();
 }
 
 function removeNumberInput(eventInformation) {
   // remove a number input
+  console.log(eventInformation.target, eventInformation.target.matches('.delete-number-input'));
+
   if (eventInformation.target.matches('.delete-number-input') && numberInputContainer.children.length > 2) {
     const selectedInputGroup = eventInformation.target.closest('.number-input-group');
     selectedInputGroup.remove();
+
     printNumberCount();
     realTime();
   }
