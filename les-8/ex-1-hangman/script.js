@@ -62,3 +62,19 @@ const gameState = {
   won: false,
   lost: false,
 };
+
+function initGame() {
+  // choose a random word > save in gamestate
+  // reset gamestate
+  // update solutionContainer > insert div.solution-letter per letter
+  // empty winOrLoseContainer.innerHTML
+  // remove success and failed classes from .letter
+}
+
+function clickLetter(event) {
+  // check if event.target is .letter
+  // check if event.target has success or failed class
+  // ---
+}
+
+// hangManImage.setAttribute('src', 'images/hangman02.png');
