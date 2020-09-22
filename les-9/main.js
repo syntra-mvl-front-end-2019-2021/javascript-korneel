@@ -67,10 +67,6 @@ function interpretBrainFuck(program, inputArray, arrayLength) {
                 instrIndex++;
                 break;
             case '[':
-                if (array[pointer] === 0) {
-                } else {
-                }
-
                 instrIndex++;
                 break;
             case ']':
