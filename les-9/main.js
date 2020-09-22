@@ -13,21 +13,30 @@ function isBrainFuckInstruction(char) {
     return brainFuckInstr.includes(char);
 }
 
+/**
+ * cleanProgram
+ * @param {string} program
+ * @returns {string[]}
+ */
 function cleanProgram(program) {
     const cleanProg = program.split('');
 
     return cleanProg.filter(isBrainFuckInstruction);
 }
 
+/**
+ * interpretBrainfuck
+ * @param {string} program
+ * @param {number[]}inputArray
+ * @param {number} arrayLength
+ * @returns {string}
+ */
 function interpretBrainFuck(program, inputArray, arrayLength) {
     const array = initArray(arrayLength);
     let result = '';
     let pointer = 0;
     const cleanProg = cleanProgram(program);
     let instrIndex = 0;
-
-    console.log(array);
-    console.log(cleanProg);
 
     while (instrIndex < cleanProg.length) {
         const instruction = cleanProg[instrIndex];
@@ -58,6 +67,10 @@ function interpretBrainFuck(program, inputArray, arrayLength) {
                 instrIndex++;
                 break;
             case '[':
+                if (array[pointer] === 0) {
+                } else {
+                }
+
                 instrIndex++;
                 break;
             case ']':
