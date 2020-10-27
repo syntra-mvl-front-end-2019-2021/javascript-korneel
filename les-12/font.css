@@ -1,0 +1,87 @@
+/** --------------------------------------------------
+    #museo sans
+    -------------------------------------------------- */
+
+/* regular */
+/* ******* */
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('museo-sans/museosans_300-webfont.svg') format('svg'),
+  url('museo-sans/museosans_300-webfont.eot') format('eot'),
+  url('museo-sans/museosans_300-webfont.ttf') format('ttf'),
+  url('museo-sans/museosans_300-webfont.woff') format('woff'),
+  url('museo-sans/museosans_300-webfont.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* italic */
+/* ****** */
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('museo-sans/museosans_300_italic-webfont.svg') format('svg'),
+  url('museo-sans/museosans_300_italic-webfont.eot') format('eot'),
+  url('museo-sans/museosans_300_italic-webfont.ttf') format('ttf'),
+  url('museo-sans/museosans_300_italic-webfont.woff') format('woff'),
+  url('museo-sans/museosans_300_italic-webfont.woff2')
+  format('woff2');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('museo-sans/museosans_500-webfont.svg') format('svg'),
+  url('museo-sans/museosans_500-webfont.eot') format('eot'),
+  url('museo-sans/museosans_500-webfont.ttf') format('ttf'),
+  url('museo-sans/museosans_500-webfont.woff') format('woff'),
+  url('museo-sans/museosans_500-webfont.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* italic */
+/* ****** */
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('museo-sans/museosans_500_italic-webfont.svg') format('svg'),
+  url('museo-sans/museosans_500_italic-webfont.eot') format('eot'),
+  url('museo-sans/museosans_500_italic-webfont.ttf') format('ttf'),
+  url('museo-sans/museosans_500_italic-webfont.woff') format('woff'),
+  url('museo-sans/museosans_500_italic-webfont.woff2')
+  format('woff2');
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* bold */
+/* **** */
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('museo-sans/museosans_700-webfont.svg') format('svg'),
+  url('museo-sans/museosans_700-webfont.eot') format('eot'),
+  url('museo-sans/museosans_700-webfont.ttf') format('ttf'),
+  url('museo-sans/museosans_700-webfont.woff') format('woff'),
+  url('museo-sans/museosans_700-webfont.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* bold - italic */
+/* ************* */
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('museo-sans/museosans_700_italic-webfont.svg') format('svg'),
+  url('museo-sans/museosans_700_italic-webfont.eot') format('eot'),
+  url('museo-sans/museosans_700_italic-webfont.ttf') format('ttf'),
+  url('museo-sans/museosans_700_italic-webfont.woff') format('woff'),
+  url('museo-sans/museosans_700_italic-webfont.woff2')
+  format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
