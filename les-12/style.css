@@ -25,13 +25,6 @@ body {
   position: relative;
 }
 
-.sub-container:after {
-  content: 'nothing';
-  display: block;
-  color: transparent;
-  height: 140px;
-}
-
 .title {
   font-weight: 700;
   color: #004899;
@@ -45,8 +38,9 @@ body {
   display: flex;
   width: 999999px;
   padding-top: 40px;
-  position: absolute;
+  position: relative;
   left: 0;
+  transition: left 500ms;
 }
 
 .citation-slider__nav-btn {

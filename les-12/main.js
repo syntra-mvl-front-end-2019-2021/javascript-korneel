@@ -14,6 +14,12 @@ function getSliderItemWidth() {
   return sliderItem.clientWidth;
 }
 
+function setSliderPosition() {
+  const itemWidth = getSliderItemWidth();
+  sliderInfo.sliderElement.style.left =
+    -1 * sliderInfo.currentSlide * itemWidth + 'px';
+}
+
 function getShownItems() {
   const container = document.querySelector('.sub-container');
 
@@ -21,7 +27,6 @@ function getShownItems() {
 }
 
 function nextSlide(event) {
-  const itemWidth = getSliderItemWidth();
   const shownItems = getShownItems();
 
   if (sliderInfo.currentSlide === sliderInfo.sliderItemCount - shownItems) {
@@ -40,8 +45,7 @@ function nextSlide(event) {
 
   sliderInfo.currentSlide++;
 
-  sliderInfo.sliderElement.style.left =
-    -1 * sliderInfo.currentSlide * itemWidth + 'px';
+  setSliderPosition();
 }
 
 function previousSlide(event) {
@@ -53,18 +57,14 @@ function previousSlide(event) {
     previousBtn.classList.add('hide');
   }
 
-  const itemWidth = getSliderItemWidth();
   nextBtn.classList.remove('hide');
   sliderInfo.currentSlide--;
 
-  sliderInfo.sliderElement.style.left =
-    -1 * sliderInfo.currentSlide * itemWidth + 'px';
+  setSliderPosition();
 }
 
 function windowResize() {
-  const itemWidth = getSliderItemWidth();
-  sliderInfo.sliderElement.style.left =
-    -1 * sliderInfo.currentSlide * itemWidth + 'px';
+  setSliderPosition();
 
   const shownItems = getShownItems();
 
