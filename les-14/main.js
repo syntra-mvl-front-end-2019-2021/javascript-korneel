@@ -1,126 +1,127 @@
-const $btn = document.getElementById('btn');
+// const $btn = document.getElementById('btn');
+//
+// let resolveMe;
+// const promise = new Promise(function (resolve) {
+//   resolveMe = resolve;
+// });
+//
+// $btn.addEventListener('click', function () {
+//   resolveMe('success');
+// });
+//
+// promise.then(function (val) {
+//   console.log(val);
+// });
 
-let resolveMe;
-const promise = new Promise(function (resolve) {
-  resolveMe = resolve;
-});
 
-$btn.addEventListener('click', function () {
-  resolveMe('success');
-});
+function createSlider($container, imgArray) {
+  const $sliderContainer = $container;
+  let $sliderElement = null;
+  let $nextBtn = null;
+  let $prevBtn = null;
+  let currentSlide = 0;
 
-promise.then(function (val) {
-  console.log(val);
-});
-
-// PROMISE
-
-const img1 =
-  'https://images.unsplash.com/photo-1470116109808-c71d8bd6f4a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';
-const img2 =
-  'https://images.unsplash.com/photo-1470117144297-a67b448680bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
-const img3 =
-  'https://images.unsplash.com/photo-1477044545293-98b9221de30a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
-const img4 =
-  'https://images.unsplash.com/photo-1478105069489-aca3e3fedcf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
-
-let promise1 = new Promise((resolve, reject) => {
-  let img = document.createElement('img');
-  img.addEventListener('load', (ev) => {
-    // console.log(img);
-    resolve(img);
-  });
-  img.addEventListener('error', (err) => {
-    console.log('Image 1 is NOT loaded');
-    reject(err);
-  });
-  img.src = img1;
-});
-
-let promise2 = new Promise((resolve, reject) => {
-  let img = document.createElement('img');
-  img.addEventListener('load', (ev) => {
-    // console.log(img);
-    resolve(img);
-  });
-  img.addEventListener('error', (err) => {
-    console.log('Image 2 is NOT loaded');
-    reject(err);
-  });
-  img.src = img2;
-});
-
-let promise3 = new Promise((resolve, reject) => {
-  let img = document.createElement('img');
-  img.addEventListener('load', (ev) => {
-    // console.log(img);
-    resolve(img);
-  });
-  img.addEventListener('error', (err) => {
-    console.log('Image 3 is NOT loaded');
-    reject(err);
-  });
-  img.src = img3;
-});
-
-let promise4 = new Promise((resolve, reject) => {
-  let img = document.createElement('img');
-  img.addEventListener('load', (ev) => {
-    // console.log(img);
-    resolve(img);
-  });
-  img.addEventListener('error', (err) => {
-    console.log('Image 4 is NOT loaded');
-    reject(err);
-  });
-  img.src = img4;
-});
-
-Promise.all([promise1, promise2, promise3, promise4])
-  .then((array) => {
-    console.log('ALL images are loaded');
-  })
-  .catch((err) => {
-    console.log('Something went wrong');
-  });
-
-// SLIDER
-
-var i = 0;
-var images = [];
-var time = 3000;
-
-images[0] = img1;
-images[1] = img2;
-images[2] = img3;
-images[3] = img4;
-
-function changeImg() {
-  console.log(images[i]);
-  document.slide.src = images[i];
-  if (i < images.length - 1) {
-    i++;
-  } else {
-    i = 0;
+  function getSliderItemWidth() {
+    let itemW = $sliderElement.querySelector('.item');
+    return itemW.clientWidth;
   }
-  setTimeout('changeImg()', time);
-}
-changeImg();
 
-function createSlider(root, imgArray) {
-  // root hidden
-  root.hidden = true;
-  // generate all html
-  // wait for all images to be loaded ('load' event and Promise.all)
-  root.hidden = false;
+  function setPosition() {
+    let itemWidth = getSliderItemWidth();
+    $sliderElement.style.left =
+      -1 * currentSlide * itemWidth + 'px';
+  }
+
+  function windowResize() {
+    setPosition();
+  }
+
+  function nextSlide() {
+    currentSlide++;
+    setPosition();
+
+    $prevBtn.classList.remove('hide');
+
+    if (currentSlide === $sliderElement.children.length - 1) {
+      $nextBtn.classList.add('hide');
+    }
+  }
+
+  function previousSlide() {
+    currentSlide--;
+    setPosition();
+
+    $nextBtn.classList.remove('hide');
+
+    if (currentSlide <= 0) {
+      $prevBtn.classList.add('hide');
+    }
+  }
+
+  function insertImages() {
+    const promiseArray = [];
+
+    imgArray.forEach(function (imgUrl) {
+      const $item = document.createElement('div');
+      const $img = document.createElement('img');
+
+      $item.classList.add('item');
+      $img.classList.add('image');
+      $img.src = imgUrl;
+
+      $item.append($img);
+      $sliderElement.append($item);
+
+      promiseArray.push(new Promise((resolve) => {
+        $img.addEventListener('load', function () {
+          resolve();
+        });
+      }));
+    });
+
+    Promise
+      .all(promiseArray)
+      .then(function () {
+        $sliderContainer.classList.remove('hide');
+      })
+      .catch(() => {
+        console.error('Images have not been loaded :(');
+      });
+  }
+
+  function createMarkup() {
+    $sliderElement = document.createElement('div');
+    $prevBtn = document.createElement('button');
+    $nextBtn = document.createElement('button');
+
+    $sliderElement.classList.add('slider');
+    $prevBtn.classList.add('prev-btn', 'hide');
+    $prevBtn.addEventListener('click', previousSlide);
+    $nextBtn.classList.add('next-btn');
+    $nextBtn.addEventListener('click', nextSlide);
+
+    $sliderContainer.classList.add('hide');
+
+    $sliderContainer.appendChild($sliderElement);
+    $sliderContainer.appendChild($prevBtn);
+    $sliderContainer.appendChild($nextBtn);
+
+    insertImages();
+  }
+
+  createMarkup();
+  window.addEventListener('resize', windowResize);
 }
 
-const sliderOne = document.getElementById('slider-1');
-const imgArray = [
-  'https://images.unsplash.com/photo-1470116109808-c71d8bd6f4a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
-  'https://images.unsplash.com/photo-1470117144297-a67b448680bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  'https://images.unsplash.com/photo-1477044545293-98b9221de30a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  'https://images.unsplash.com/photo-1478105069489-aca3e3fedcf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+let imgArr = [
+  'https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+  'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?ixlib=rb-1.2.1&auto=format&fit=crop&w=639&q=80',
+  'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&auto=format&fit=crop&w=612&q=80'
 ];
 
-createSlider(sliderOne, imgArray);
+let $container = document.querySelector('#container1');
+let $container2 = document.querySelector('#container2');
+
+createSlider($container, imgArr);
+createSlider($container2, imgArr);
+
