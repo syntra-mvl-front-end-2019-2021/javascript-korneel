@@ -1,3 +1,5 @@
+//https://docs.directus.io/api/items.html#the-item-object
+
 function fetchAllTodos() {
   fetch('https://phpstack-224488-1624928.cloudwaysapps.com/_/items/todo', {
     method: 'GET',
