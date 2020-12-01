@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Currency exchange</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form name="currency" class="form-container">
+    <label>From:
+        <select required name="from" id="currency-from">
+            <option value="" disabled selected>Select currency</option>
+        </select>
+    </label>
+    <label>To:
+        <select required name="to" id="currency-to">
+            <option value="" disabled selected>Select currency</option>
+        </select>
+    </label>
+    <label>
+        On:
+        <input required name="date" id="date-input" type="date" min="1999-01-01">
+    </label>
+    <button id="submit-btn" type="submit">click-change</button>
+</form>
+<div id="result-container"></div>
+
+<script src="main.js"></script>
+</body>
+</html>
