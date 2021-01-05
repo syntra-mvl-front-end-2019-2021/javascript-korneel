@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Hello Vue</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <p>Hello {{ name }}</p>
+      <p :class="count % 2 === 0 ? 'red' : 'blue'">Count: {{ count }}</p>
+      <input type="text" v-model="name" />
+      <button @click="addOne">Add 1</button>
+
+      <span v-if="count % 2 === 0">Even getal</span>
+
+      <div>
+        <input type="text" v-model="newTodo" />
+        <button @click="addTodo">Add todo</button>
+        <ul>
+          <li v-for="(todoItem, index) in todoList" :key="'ul_' + index">
+            {{ todoItem }}
+          </li>
+        </ul>
+        <div v-for="(todoItem, index) in todoList" :key="'div_' + index">
+          <p>{{index}} {{ todoItem }} <button>Done</button></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
