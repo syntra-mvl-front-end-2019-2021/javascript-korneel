@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TODO</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="vue-app">
+      <h1>{{ title }}</h1>
+
+      <div class="add-btn__container">
+        <button id="add-btn" class="add-btn" @click="addTodo">Add todo</button>
+      </div>
+
+      <div
+        id="list-container"
+        :class="{'list-container': true, 'loading': loadingList}"
+      >
+        <div
+          v-for="(todoItem, index) in todoItems"
+          :key="'todoItem_' + todoItem.id"
+          class="list-item list-item--done"
+        >
+          <p class="list-item__description">{{ todoItem.description }}</p>
+          <div class="list-item__actions">
+            <button class="list-item__update" @click="updateTodo(todoItem)">
+              Update
+            </button>
+            <button
+              class="list-item__delete"
+              @click="deleteTodo(todoItem.id, index)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="form-modal"
+        :class="{
+            'modal__background': true,
+            'modal__background--active': modalOpen
+        }"
+      >
+        <div :class="{'modal': true, 'loading': loadingForm}">
+          <form
+            name="todo-form"
+            id="todo-form"
+            @submit.prevent="submitTodoForm"
+          >
+            <input name="id" type="hidden" v-model="activeTodoItem.id" />
+            <label>
+              Done:
+              <input
+                name="done"
+                type="checkbox"
+                value="true"
+                v-model="activeTodoItem.done"
+              />
+            </label>
+            <label>
+              Description:
+              <textarea
+                name="description"
+                v-model="activeTodoItem.description"
+              ></textarea>
+            </label>
+            <div id="modal-error" class="modal__error-message">
+              {{ errorMessage }}
+            </div>
+            <button
+              id="reset-btn"
+              class="reset-btn"
+              type="button"
+              @click="modalOpen = false"
+            >
+              Cancel
+            </button>
+            <button id="submit-btn" class="submit-btn" type="submit">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
