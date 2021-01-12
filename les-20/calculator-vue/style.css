@@ -1,0 +1,5 @@
+.screen__line-one,
+.screen__line-two {
+  height: 2rem;
+  border: 1px solid goldenrod;
+}

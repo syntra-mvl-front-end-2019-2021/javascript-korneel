@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="vue-app">
+      <div class="screen">
+        <div class="screen__line-one">
+          {{lineOne === null ? '' : lineOne}} <span>{{symbol}}</span>
+        </div>
+        <div class="screen__line-two">{{lineTwo === null ? '' : lineTwo}}</div>
+      </div>
+      <div class="buttons">
+        <div class="buttons__numbers">
+          <button type="button" class="buttons__number" @click="addNumber(0)">
+            0
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(1)">
+            1
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(2)">
+            2
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(3)">
+            3
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(4)">
+            4
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(5)">
+            5
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(6)">
+            6
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(7)">
+            7
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(8)">
+            8
+          </button>
+          <button type="button" class="buttons__number" @click="addNumber(9)">
+            9
+          </button>
+        </div>
+        <div class="buttons__math">
+          <button class="buttons__math-item" @click="selectSymbol('+')">
+            +
+          </button>
+          <button class="buttons__math-item" @click="selectSymbol('-')">
+            -
+          </button>
+          <button class="buttons__math-item" @click="selectSymbol('/')">
+            /
+          </button>
+          <button class="buttons__math-item" @click="selectSymbol('*')">
+            *
+          </button>
+          <button class="buttons__math-item" @click="calculate">=</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
