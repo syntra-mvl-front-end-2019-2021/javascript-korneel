@@ -8,6 +8,10 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -17,6 +21,7 @@
           {{lineOne === null ? '' : lineOne}} <span>{{symbol}}</span>
         </div>
         <div class="screen__line-two">{{lineTwo === null ? '' : lineTwo}}</div>
+        <input type="number" @keydown="keydown" v-model="lineTwo" />
       </div>
       <div class="buttons">
         <div class="buttons__numbers">
@@ -64,8 +69,24 @@
           <button class="buttons__math-item" @click="selectSymbol('*')">
             *
           </button>
+          <button class="buttons__math-item" @click="selectSymbol('√')">
+            √
+          </button>
+          <button class="buttons__math-item" @click="selectSymbol('^')">
+            ^
+          </button>
           <button class="buttons__math-item" @click="calculate">=</button>
+          <button class="buttons__math-item" @click="backspace"><<</button>
+          <button class="buttons__math-item" @click="clear">C</button>
         </div>
+        <ul class="history__container">
+          <li
+            v-for="(historyItem, index) in history"
+            :key="index + historyItem"
+          >
+            {{ historyItem }}
+          </li>
+        </ul>
       </div>
     </div>
 
