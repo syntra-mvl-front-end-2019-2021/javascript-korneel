@@ -1,6 +1,4 @@
-n
 <template>
-  <Header />
   <!-- Banner -->
   <section id="banner">
     <div class="inner">
@@ -182,12 +180,11 @@ n
 </template>
 
 <script>
-import Header from '@/components/Header';
 import Highlight from '@/components/Highlight';
 
 export default {
-  name: 'App',
-  components: { Header, Highlight },
+  name: 'Index',
+  components: { Highlight },
   data() {
     return {
       highlights: [
